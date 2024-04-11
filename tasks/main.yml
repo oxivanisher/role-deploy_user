@@ -6,6 +6,16 @@
     create_home: true
     password: "!"
 
+- name: Ensure secure home dir permissions
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/"
+    state: directory
+    owner: "{{ deploy_user_comment }}"
+    group: "{{ deploy_user_comment }}"
+    mode: '0700'
+  become: true
+  become_user: "{{ deploy_user_comment }}"
+
 - name: Add authorized keys for deploy user
   ansible.posix.authorized_key:
     user: "{{ deploy_user_username }}"
