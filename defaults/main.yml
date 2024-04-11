@@ -1,0 +1,6 @@
+---
+# defaults file for deploy_user
+deploy_user_username: ansible
+deploy_user_comment: Ansible User
+deploy_user_ssh_keys_present: []
+deploy_user_ssh_keys_absent: []

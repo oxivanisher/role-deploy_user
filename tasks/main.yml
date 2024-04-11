@@ -1,0 +1,28 @@
+---
+- name: Ensure deploy user exists
+  ansible.builtin.user:
+    name: "{{ deploy_user_username }}"
+    comment: "{{ deploy_user_comment }}"
+    create_home: true
+    password: "!"
+
+- name: Add authorized keys for deploy user
+  ansible.posix.authorized_key:
+    user: "{{ deploy_user_username }}"
+    state: present
+    key: "{{ item }}"
+  loop: "{{ deploy_user_ssh_keys_present }}"
+
+- name: Remove authorized keys for deploy user
+  ansible.posix.authorized_key:
+    user: "{{ deploy_user_username }}"
+    state: absent
+    key: "{{ item }}"
+  loop: "{{ deploy_user_ssh_keys_absent }}"
+
+- name: Configure sudo for deploy user
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ deploy_user_username }}"
+    content: "{{ deploy_user_username }} ALL=(ALL) NOPASSWD:ALL"
+    mode: "0440"
+    validate: 'visudo -cf %s'
