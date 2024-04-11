@@ -10,11 +10,11 @@
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/"
     state: directory
-    owner: "{{ deploy_user_comment }}"
-    group: "{{ deploy_user_comment }}"
+    owner: "{{ deploy_user_username }}"
+    group: "{{ deploy_user_username }}"
     mode: '0700'
   become: true
-  become_user: "{{ deploy_user_comment }}"
+  become_user: "{{ deploy_user_username }}"
 
 - name: Add authorized keys for deploy user
   ansible.posix.authorized_key:
