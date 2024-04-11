@@ -5,6 +5,8 @@
     comment: "{{ deploy_user_comment }}"
     create_home: true
     password: "!"
+  become: true
+  become_user: root
 
 - name: Get home directory of deploy user
   ansible.builtin.getent:
