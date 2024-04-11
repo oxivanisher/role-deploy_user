@@ -6,9 +6,18 @@
     create_home: true
     password: "!"
 
+- name: Get home directory of deploy user
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ deploy_user_username }}"
+
+- name: Set home directory var for deploy user
+  ansible.builtin.set_fact:
+    deploy_user_home: "{{ getent_passwd[deploy_user_username][4] }}"
+
 - name: Ensure secure home dir permissions
   ansible.builtin.file:
-    path: "{{ lookup('env', 'HOME') }}/"
+    path: "{{ deploy_user_home }}"
     state: directory
     owner: "{{ deploy_user_username }}"
     group: "{{ deploy_user_username }}"
