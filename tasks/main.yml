@@ -12,6 +12,7 @@
     state: present
     key: "{{ item }}"
   loop: "{{ deploy_user_ssh_keys_present }}"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Remove authorized keys for deploy user
   ansible.posix.authorized_key:
@@ -19,6 +20,7 @@
     state: absent
     key: "{{ item }}"
   loop: "{{ deploy_user_ssh_keys_absent }}"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Configure sudo for deploy user
   ansible.builtin.copy:
