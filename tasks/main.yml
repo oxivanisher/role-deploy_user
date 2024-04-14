@@ -1,4 +1,9 @@
 ---
+- name: Ensure sudo package is available
+  ansible.builtin.package:
+    name: sudo
+    state: present
+
 - name: Ensure deploy user exists
   ansible.builtin.user:
     name: "{{ deploy_user_username }}"
