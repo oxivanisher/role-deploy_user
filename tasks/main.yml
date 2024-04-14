@@ -3,6 +3,8 @@
   ansible.builtin.package:
     name: sudo
     state: present
+  become: true
+  become_user: root
 
 - name: Ensure deploy user exists
   ansible.builtin.user:
@@ -49,6 +51,15 @@
     key: "{{ item }}"
   loop: "{{ deploy_user_ssh_keys_absent }}"
   ignore_errors: "{{ ansible_check_mode }}"
+  become: true
+  become_user: root
+
+- name: Ensure /etc/sudoers.d/ exists
+  ansible.builtin.file:
+    path: "/etc/sudoers.d/"
+    owner: root
+    group: root
+    mode: "0755"
   become: true
   become_user: root
 
