@@ -6,10 +6,18 @@
   become: true
   become_user: root
 
+- name: Ensure deploy user group exists
+  ansible.builtin.group:
+    name: "{{ deploy_user_groupname }}"
+    state: present
+  become: true
+  become_user: root
+
 - name: Ensure deploy user exists
   ansible.builtin.user:
     name: "{{ deploy_user_username }}"
     comment: "{{ deploy_user_comment }}"
+    group: "{{ deploy_user_groupname }}"
     create_home: true
     password: "!"
   become: true
@@ -29,8 +37,8 @@
     path: "{{ deploy_user_home }}"
     state: directory
     owner: "{{ deploy_user_username }}"
-    group: "{{ deploy_user_username }}"
-    mode: '0700'
+    group: "{{ deploy_user_groupname }}"
+    mode: '0750'
   become: true
   become_user: root
 
