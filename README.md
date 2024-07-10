@@ -20,6 +20,7 @@ Role Variables
 |------------------------------|----------------------------------------------------------|----------------|
 | deploy_user_username         | Username of the deployment user                          | `ansible`      |
 | deploy_user_comment          | Comment for the deployment user                          | `Ansible User` |
+| deploy_user_groupname        | Name of the deployment user group                        | `ansible`      |
 | deploy_user_ssh_keys_present | A list of SSH keys to be present for the deployment user | `[]`           |
 | deploy_user_ssh_keys_absent  | A list of SSH keys to be absent for the deployment user  | `[]`           |
 
