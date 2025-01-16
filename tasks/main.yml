@@ -27,10 +27,12 @@
   ansible.builtin.getent:
     database: passwd
     key: "{{ deploy_user_username }}"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Set home directory var for deploy user
   ansible.builtin.set_fact:
     deploy_user_home: "{{ getent_passwd[deploy_user_username][4] }}"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Ensure secure home dir permissions
   ansible.builtin.file:
@@ -39,6 +41,7 @@
     owner: "{{ deploy_user_username }}"
     group: "{{ deploy_user_groupname }}"
     mode: '0750'
+  ignore_errors: "{{ ansible_check_mode }}"
   become: true
   become_user: root
 
