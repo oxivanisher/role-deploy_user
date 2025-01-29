@@ -20,6 +20,7 @@
     group: "{{ deploy_user_groupname }}"
     create_home: true
     password: "!"
+  ignore_errors: "{{ ansible_check_mode }}"
   become: true
   become_user: root
 
