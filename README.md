@@ -28,10 +28,10 @@ Example Playbook
 ----------------
 
 ```yaml
-- name: SSH Keys
+- name: Deploy ansible user
   hosts: servers
   roles:
-    - role: oxivanisher.linux_base.ssh_keys
+    - role: oxivanisher.linux_base.deploy_user
       tags:
         - basic_access
 ```
