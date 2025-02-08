@@ -1,5 +1,6 @@
 deploy_user
 ===========
+[![Ansible Lint](https://github.com/oxivanisher/role-deploy_user/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/oxivanisher/role-deploy_user/actions/workflows/ansible-lint.yml)
 
 This role configures a deployment user to be used for ansible runs.
 
