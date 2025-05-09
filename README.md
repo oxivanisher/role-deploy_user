@@ -22,8 +22,12 @@ Role Variables
 | deploy_user_username         | Username of the deployment user                          | `ansible`      |
 | deploy_user_comment          | Comment for the deployment user                          | `Ansible User` |
 | deploy_user_groupname        | Name of the deployment user group                        | `ansible`      |
+| deploy_user_uid_max          | Max UID of hte deployment user                           | `999`          |
 | deploy_user_ssh_keys_present | A list of SSH keys to be present for the deployment user | `[]`           |
 | deploy_user_ssh_keys_absent  | A list of SSH keys to be absent for the deployment user  | `[]`           |
+
+
+Since on most systems "normal" user accounts start at UID 1000, setting the `deploy_user_uid_max` will i.e. hide the deployment user on some GUI login screens automatically. If you want the user to get a "normal" UID, just set `deploy_user_uid_max` to i.e. `10000`.
 
 Example Playbook
 ----------------
