@@ -18,6 +18,7 @@
     name: "{{ deploy_user_username }}"
     comment: "{{ deploy_user_comment }}"
     group: "{{ deploy_user_groupname }}"
+    uid_max: "{{ deploy_user_uid_max }}"
     create_home: true
     password: "!"
   ignore_errors: "{{ ansible_check_mode }}"
