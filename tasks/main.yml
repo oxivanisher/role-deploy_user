@@ -34,7 +34,7 @@
 
 - name: Set home directory var for deploy user
   ansible.builtin.set_fact:
-    deploy_user_home: "{{ getent_passwd[deploy_user_username][4] }}"
+    deploy_user_home: "{{ ansible_facts.getent_passwd[deploy_user_username][4] }}"
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Ensure secure home dir permissions
