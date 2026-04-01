@@ -7,3 +7,4 @@ deploy_user_uid_min: 900
 deploy_user_uid_max: 999
 deploy_user_ssh_keys_present: []
 deploy_user_ssh_keys_absent: []
+deploy_user_sudo_rules: "ALL=(ALL) NOPASSWD:ALL"

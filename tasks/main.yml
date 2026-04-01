@@ -4,14 +4,12 @@
     name: sudo
     state: present
   become: true
-  become_user: root
 
 - name: Ensure deploy user group exists
   ansible.builtin.group:
     name: "{{ deploy_user_groupname }}"
     state: present
   become: true
-  become_user: root
 
 - name: Ensure deploy user exists
   ansible.builtin.user:
@@ -24,7 +22,6 @@
     password: "!"
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
-  become_user: root
 
 - name: Get home directory of deploy user
   ansible.builtin.getent:
@@ -43,10 +40,9 @@
     state: directory
     owner: "{{ deploy_user_username }}"
     group: "{{ deploy_user_groupname }}"
-    mode: '0750'
+    mode: "0750"
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
-  become_user: root
 
 - name: Add authorized keys for deploy user
   ansible.posix.authorized_key:
@@ -56,7 +52,6 @@
   loop: "{{ deploy_user_ssh_keys_present }}"
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
-  become_user: root
 
 - name: Remove authorized keys for deploy user
   ansible.posix.authorized_key:
@@ -66,7 +61,6 @@
   loop: "{{ deploy_user_ssh_keys_absent }}"
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
-  become_user: root
 
 - name: Ensure /etc/sudoers.d/ exists
   ansible.builtin.file:
@@ -75,13 +69,11 @@
     group: root
     mode: "0755"
   become: true
-  become_user: root
 
 - name: Configure sudo for deploy user
   ansible.builtin.copy:
     dest: "/etc/sudoers.d/{{ deploy_user_username }}"
-    content: "{{ deploy_user_username }} ALL=(ALL) NOPASSWD:ALL"
+    content: "{{ deploy_user_username }} {{ deploy_user_sudo_rules }}"
     mode: "0440"
     validate: /usr/sbin/visudo -cf %s
   become: true
-  become_user: root
