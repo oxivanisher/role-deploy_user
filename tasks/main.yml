@@ -73,7 +73,8 @@
 - name: Configure sudo for deploy user
   ansible.builtin.copy:
     dest: "/etc/sudoers.d/{{ deploy_user_username }}"
-    content: "{{ deploy_user_username }} {{ deploy_user_sudo_rules }}"
+    content: |
+      {{ deploy_user_username }} {{ deploy_user_sudo_rules }}
     mode: "0440"
     validate: /usr/sbin/visudo -cf %s
   become: true
